@@ -3,33 +3,38 @@ name: Build PumpkinPal
 
 on:
   push:
-    branches: [ "main", "master" ]
+    branches: [ "main" ]
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     permissions:
       contents: read
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Java 21
-        uses: actions/setup-java@v4
+      - uses: actions/setup-java@v4
         with:
           java-version: '21'
-          distribution: 'temurin'
+          distribution: temurin
 
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v4
 
       - name: Build mod
-        run: gradle build
+        run: gradle clean build
 
-      - name: Upload mod JAR
+      - name: Verify mod contents
+        run: |
+          JAR=$(find build/libs -maxdepth 1 -name '*.jar' | head -n 1)
+          test -n "$JAR"
+          echo "Contenu du JAR :"
+          jar tf "$JAR"
+          jar tf "$JAR" | grep -q 'META-INF/neoforge.mods.toml'
+          jar tf "$JAR" | grep -q 'com/pumpkinpal/PumpkinPal.class'
+
+      - name: Upload mod
         uses: actions/upload-artifact@v4
         with:
           name: pumpkinpal-jar
