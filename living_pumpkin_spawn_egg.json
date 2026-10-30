@@ -1,0 +1,10 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "pumpkinpal:item/living_pumpkin_spawn_egg",
+    "tints": [
+      { "type": "minecraft:constant", "value": 16744192 },
+      { "type": "minecraft:constant", "value": 2105376 }
+    ]
+  }
+}

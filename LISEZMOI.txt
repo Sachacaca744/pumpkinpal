@@ -1,0 +1,3 @@
+Mod "Living Pumpkin" - Minecraft 1.21.4 / NeoForge 21.4.161
+Voir les instructions dans la reponse de Claude.
+Le .jar sera dans l'artefact "pumpkinpal-jar" de l'onglet Actions GitHub.
